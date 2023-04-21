@@ -3,6 +3,8 @@ session_start();
 require 'dbcon.php';
 ?>
 
+
+
  <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +54,10 @@ require 'dbcon.php';
       const description = document.createElement("td");
       const demo_link = document.createElement("td");
       const meta_keywords = document.createElement("td");
-
+      
+      const view = document.createElement("button");
+      const edit = document.createElement("button");
+  
       ad_format.textContent = data[i].ad_format;
       template.textContent = data[i].template;
       average_ctr.textContent = data[i].average_ctr;
@@ -64,19 +69,51 @@ require 'dbcon.php';
       demo_link.textContent = data[i].demo_link;
       meta_keywords.textContent = data[i].meta_keywords;
 
+
       tr.appendChild(ad_format);
       tr.appendChild(template);
       tr.appendChild(average_ctr);
       tr.appendChild(dimensions); 
       tr.appendChild(duration);
       tr.appendChild(functionality);
-         tr.appendChild(reviews);
+      tr.appendChild(reviews);
       tr.appendChild(description);
       tr.appendChild(demo_link); 
       tr.appendChild(meta_keywords); 
+      tr.appendChild(view).innerHTML = `<a class="viewpage">View</a>`;
+      tr.appendChild(edit).innerHTML = `<a class="editpage">Edit</a>`;
+
+      tr.appendChild(edit);
+
+     
 
       tableBody.appendChild(tr);
+
+      
+
     }
+
+    const adddata = document.createElement("button");
+
+    adddata.setAttribute("class" , "addbtn")
+
+     var table = document.getElementById("table");
+
+    table.parentNode.insertBefore(adddata, table);
+
+    adddata.innerHTML = `<a href="https://publisherplex.io/webpresentation/console/presentation_create.php">Add Data</a>`
+
+    for(let m=0;m<document.querySelectorAll(".viewpage").length;m++){
+     var viewpage =  document.querySelectorAll(".viewpage")[m];
+     viewpage.setAttribute("href", `https://publisherplex.io/webpresentation/console/data_view.php?id=${m+1}`)
+    }
+
+    for(let m=0;m<document.querySelectorAll(".editpage").length;m++){
+     var editpage =  document.querySelectorAll(".editpage")[m];
+     editpage.setAttribute("href", `https://publisherplex.io/webpresentation/console/data_edit.php?id=${m+1}`)
+    }
+   
+    
   });
 
          
